@@ -127,10 +127,13 @@ docker compose up --build
 ### Source Code Reference:
 - Workflow Specification: [.github/workflows/ci-cd.yml](file:///d:/TaskBoard-Project/session21-python/.github/workflows/ci-cd.yml)
 
-### Pipeline Stages & Gates:
-1. **Test Job**: Runs on Ubuntu runner, installs Python 3.12 dependencies, executes `pytest -v`, sets up Node.js 22, and builds the React frontend. If any test fails, the pipeline aborts immediately.
-2. **Build-Scan-Push Job**: Converts repository owner to lowercase (preventing GHCR uppercase tag errors), builds Docker containers for frontend and backend, scans both images with Aqua Trivy for HIGH and CRITICAL vulnerabilities, and pushes images tagged with `${{ github.sha }}` to `ghcr.io`.
-3. **Deploy Job**: Triggers only on push to `main`, sets up Helm, configures kubeconfig from secrets, and executes `helm upgrade --install` with the specific commit SHA tags.
+### Verified Green Pipeline Run:
+- **Successful Pipeline URL**: [https://github.com/cidkagenou198/Task-Board_Project/actions/runs/38860453826](https://github.com/cidkagenou198/Task-Board_Project/actions/runs/38860453826)
+- **Status**: Completed (`success`)
+- **Published GHCR Packages**: [https://github.com/cidkagenou198?tab=packages](https://github.com/cidkagenou198?tab=packages)
+- **Docker Images Published**:
+  - `ghcr.io/cidkagenou198/taskboard-backend:c90973f...`
+  - `ghcr.io/cidkagenou198/taskboard-frontend:c90973f...`
 
 ---
 
