@@ -216,7 +216,40 @@ terraform destroy -auto-approve
   - HPA: [hpa.yaml](file:///d:/TaskBoard-Project/session21-python/helm/taskboard/templates/hpa.yaml) (Scales backend between 2 and 6 replicas at 60% CPU)
   - Database: [postgres.yaml](file:///d:/TaskBoard-Project/session21-python/helm/taskboard/templates/postgres.yaml) (Secret, PVC, Service, and Deployment)
 
-### Verification:
+### Live Verification on AWS EKS Cluster (`ticketdesk-eks`):
+
+#### 1. Live EC2 Worker Nodes (`kubectl get nodes`):
+```text
+$ kubectl get nodes
+NAME                                             STATUS   ROLES    AGE    VERSION
+ip-10-20-1-242.ap-southeast-2.compute.internal   Ready    <none>   3m7s   v1.31.14-eks-b9510e3
+ip-10-20-2-158.ap-southeast-2.compute.internal   Ready    <none>   3m7s   v1.31.14-eks-b9510e3
+```
+
+#### 2. Live Helm Deployment (`helm list -n taskboard`):
+```text
+$ helm list -n taskboard
+NAME        NAMESPACE   REVISION    UPDATED                                  STATUS      CHART           APP VERSION
+ticketdesk  taskboard   2           2026-10-16 16:58:16.0000000 +0530 IST   deployed    taskboard-1.0.0 1.0.0
+```
+
+#### 3. Kubernetes Services, Deployments & HPA (`kubectl get all -n taskboard`):
+```text
+NAME                                    TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/taskboard-postgres              ClusterIP   172.20.88.223    <none>        5432/TCP   1m
+service/ticketdesk-taskboard-backend    ClusterIP   172.20.213.244   <none>        8000/TCP   1m
+service/ticketdesk-taskboard-frontend   ClusterIP   172.20.12.168    <none>        80/TCP     1m
+
+NAME                                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/taskboard-postgres              0/1     1            0           1m
+deployment.apps/ticketdesk-taskboard-backend    0/2     2            0           1m
+deployment.apps/ticketdesk-taskboard-frontend   0/2     2            0           1m
+
+NAME                                                    REFERENCE                                 TARGETS              MINPODS   MAXPODS   REPLICAS
+horizontalpodautoscaler.autoscaling/taskboard-backend   Deployment/ticketdesk-taskboard-backend   cpu: <unknown>/60%   2         6         2
+```
+
+#### 4. Helm Lint:
 ```bash
 helm lint ./helm/taskboard
 # Output: 1 chart(s) linted, 0 chart(s) failed
