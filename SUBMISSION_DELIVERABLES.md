@@ -229,8 +229,11 @@ http_requests_total{handler="/api/tasks/{task_id}",method="DELETE",status="2xx"}
 5. **Show Kubernetes Deployment**: Run `kubectl get pods -n taskboard` and `helm list -n taskboard` showing running pods and updated image tag.
 6. **Show Metrics & Load**: Run `scripts/load-test.sh` and show live traffic spike in Prometheus Targets (`UP`) and Grafana dashboard.
 
-### Recorded Video Walkthrough Deliverables:
-- **Comprehensive Project Walkthrough (M1–M10)**: [docs/demo/deliverables_video_walkthrough.webp](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_video_walkthrough.webp) (665 frames, 7.8 MB recording covering the complete application stack, live task workflow, OpenAPI interactive execution, Prometheus `/metrics`, GitHub repository, and green GitHub Actions CI/CD pipeline).
-- **Interactive Application UI Demo**: [docs/demo/taskboard_ui_walkthrough.webp](file:///d:/TaskBoard-Project/session21-python/docs/demo/taskboard_ui_walkthrough.webp) (453 frames recording interactive task creation, priority assignment, status transitions, and dynamic column filtering).
+### Recorded Screen Recording & Video Deliverables:
+- **Standard MP4 Video File**: [docs/demo/deliverables_walkthrough.mp4](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_walkthrough.mp4) (12.2 MB standard video file playable in Windows Media Player, VLC, QuickTime, Chrome, Edge, and iOS/Android).
+- **Comprehensive Project Walkthrough (WebP)**: [docs/demo/deliverables_video_walkthrough.webp](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_video_walkthrough.webp) (665 frames, 7.8 MB full walkthrough across M1–M10).
+- **Embedded Web Player**: Available directly at `http://localhost:3000/demo.html` or by clicking **"▶ Watch Screen Recording"** in the TaskBoard header.
+- **Revamped Kanban Interface**: [docs/demo/kanban_dashboard.png](file:///d:/TaskBoard-Project/session21-python/docs/demo/kanban_dashboard.png)
 - **Visual Evidence Directory**: [docs/demo/](file:///d:/TaskBoard-Project/session21-python/docs/demo/)
+
 
