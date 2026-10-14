@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+ENV/
+
+# Python cache & artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment files & secrets
+.env
+.env.local
+*.pem
+
+# Build outputs
+dist/
+target/
+build/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# IDEs & OS files
+.idea/
+.vscode/
+*.swp
+*.log
+.DS_Store
+Thumbs.db
+test.db
