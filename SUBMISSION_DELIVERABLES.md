@@ -228,3 +228,9 @@ http_requests_total{handler="/api/tasks/{task_id}",method="DELETE",status="2xx"}
 4. **Show CI Pipeline**: Open GitHub Actions tab. Show test execution $\rightarrow$ Trivy scanning both images $\rightarrow$ container images published to GHCR with the commit SHA tag.
 5. **Show Kubernetes Deployment**: Run `kubectl get pods -n taskboard` and `helm list -n taskboard` showing running pods and updated image tag.
 6. **Show Metrics & Load**: Run `scripts/load-test.sh` and show live traffic spike in Prometheus Targets (`UP`) and Grafana dashboard.
+
+### Recorded Video Walkthrough Deliverables:
+- **Comprehensive Project Walkthrough (M1–M10)**: [docs/demo/deliverables_video_walkthrough.webp](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_video_walkthrough.webp) (665 frames, 7.8 MB recording covering the complete application stack, live task workflow, OpenAPI interactive execution, Prometheus `/metrics`, GitHub repository, and green GitHub Actions CI/CD pipeline).
+- **Interactive Application UI Demo**: [docs/demo/taskboard_ui_walkthrough.webp](file:///d:/TaskBoard-Project/session21-python/docs/demo/taskboard_ui_walkthrough.webp) (453 frames recording interactive task creation, priority assignment, status transitions, and dynamic column filtering).
+- **Visual Evidence Directory**: [docs/demo/](file:///d:/TaskBoard-Project/session21-python/docs/demo/)
+
