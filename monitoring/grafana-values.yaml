@@ -1,0 +1,35 @@
+# Grafana Helm Values configuration for TaskBoard Observability
+adminUser: "admin"
+adminPassword: "admin"
+
+service:
+  type: ClusterIP
+  port: 80
+
+persistence:
+  enabled: false
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://kube-prometheus-stack-prometheus:9090
+        access: proxy
+        isDefault: true
+        jsonData:
+          timeInterval: 15s
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
