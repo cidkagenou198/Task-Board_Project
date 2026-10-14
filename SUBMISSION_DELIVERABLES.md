@@ -299,11 +299,17 @@ http_requests_total{handler="/api/tasks/{task_id}",method="DELETE",status="2xx"}
 5. **Show Kubernetes Deployment**: Run `kubectl get pods -n taskboard` and `helm list -n taskboard` showing running pods, HPA auto-scaling (2-6 replicas), and ingress rules.
 6. **Show Metrics & Load**: Show live traffic counter in Prometheus `/metrics` and Grafana dashboard.
 
+### Presentation Slide Deck (10 Modules):
+- **PowerPoint Presentation (.PPTX)**: [docs/presentation/TicketDesk_DevOps_Capstone_Presentation.pptx](file:///d:/TaskBoard-Project/session21-python/docs/presentation/TicketDesk_DevOps_Capstone_Presentation.pptx) (13 custom 16:9 widescreen slides covering M1 to M10, architecture, credentials, and scorecard).
+- **Interactive Web Slide Deck**: [docs/presentation/index.html](file:///d:/TaskBoard-Project/session21-python/docs/presentation/index.html) (HTML5 presentation deck with keyboard navigation, progress bar, and fullscreen mode). Also accessible at `http://localhost:3000/presentation.html` or via the **"📊 Capstone Slides"** button in the TicketDesk header.
+- **Python Deck Generator Script**: [scripts/generate_presentation.py](file:///d:/TaskBoard-Project/session21-python/scripts/generate_presentation.py).
+
 ### Recorded Screen Recording & Video Deliverables:
 - **Fast-Paced Borderless Demo Video (MP4)**: [docs/demo/deliverables_walkthrough_fast.mp4](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_walkthrough_fast.mp4) (4.88 MB, 17.2 seconds, 24 FPS, 1236x648, 0 blue border pixels, 100% borderless clean capture).
 - **Lightweight Animated WebP**: [docs/demo/deliverables_walkthrough_fast.webp](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_walkthrough_fast.webp) (3.10 MB compact web animation).
 - **Embedded Web Player**: Available directly at `http://localhost:3000/demo.html` or by clicking **"▶ Watch Screen Recording"** in the TicketDesk header.
 - **TicketDesk Incident Board Interface**: [docs/demo/ticketdesk_dashboard.png](file:///d:/TaskBoard-Project/session21-python/docs/demo/ticketdesk_dashboard.png)
 - **Visual Evidence Directory**: [docs/demo/](file:///d:/TaskBoard-Project/session21-python/docs/demo/)
+
 
 

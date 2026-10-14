@@ -183,6 +183,16 @@ function App() {
           </div>
 
           <div className="header-actions">
+            <a 
+              href="/presentation.html" 
+              target="_blank" 
+              rel="noreferrer"
+              className="btn btn-secondary"
+              style={{ textDecoration: 'none' }}
+              title="Open Capstone Presentation Deck (M1-M10)"
+            >
+              <span>📊</span> Capstone Slides
+            </a>
             <button className="btn btn-accent" onClick={() => setShowVideoModal(true)}>
               <span>▶</span> Watch Screen Recording
             </button>
