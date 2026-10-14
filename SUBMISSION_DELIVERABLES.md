@@ -305,8 +305,7 @@ http_requests_total{handler="/api/tasks/{task_id}",method="DELETE",status="2xx"}
 - **Python Deck Generator Script**: [scripts/generate_presentation.py](file:///d:/TaskBoard-Project/session21-python/scripts/generate_presentation.py).
 
 ### Recorded Screen Recording & Video Deliverables:
-- **Fast-Paced Borderless Demo Video (MP4)**: [docs/demo/deliverables_walkthrough_fast.mp4](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_walkthrough_fast.mp4) (4.88 MB, 17.2 seconds, 24 FPS, 1236x648, 0 blue border pixels, 100% borderless clean capture).
-- **Lightweight Animated WebP**: [docs/demo/deliverables_walkthrough_fast.webp](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_walkthrough_fast.webp) (3.10 MB compact web animation).
+- **Recorded Screen Recording Video Walkthrough (MP4)**: [docs/demo/deliverables_walkthrough_fast.mp4](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_walkthrough_fast.mp4) (31.6 MB, 1 minute 34 seconds, candidate screen recording demo).
 - **Embedded Web Player**: Available directly at `http://localhost:3000/demo.html` or by clicking **"▶ Watch Screen Recording"** in the TicketDesk header.
 - **TicketDesk Incident Board Interface**: [docs/demo/ticketdesk_dashboard.png](file:///d:/TaskBoard-Project/session21-python/docs/demo/ticketdesk_dashboard.png)
 - **Visual Evidence Directory**: [docs/demo/](file:///d:/TaskBoard-Project/session21-python/docs/demo/)
