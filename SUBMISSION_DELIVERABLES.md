@@ -168,7 +168,13 @@ docker compose up --build
 
 ### Live AWS Deployment Evidence (Account: `131227885734`):
 - **Target Region**: `ap-southeast-2` (Asia Pacific - Sydney)
-- **Cluster Name**: `ticketdesk-eks` (Kubernetes v1.31)
+- **Cluster Name**: `ticketdesk-eks` (Kubernetes v1.31) — **STATUS: ACTIVE**
+- **Cluster ARN**: `arn:aws:eks:ap-southeast-2:131227885734:cluster/ticketdesk-eks`
+- **Cluster API Endpoint**: `https://53738F75927BB86607157F71EF9B99DF.yl4.ap-southeast-2.eks.amazonaws.com`
+- **Managed Node Group**: `main-20261016112118712800000013` — **STATUS: ACTIVE**
+- **Live Running EC2 Worker Nodes**:
+  - Node 1: `i-077036b0beeb079c5` (`t3.medium`, Private IP: `10.20.2.158`, State: `running`)
+  - Node 2: `i-033297766cb7250cc` (`t3.medium`, Private IP: `10.20.1.242`, State: `running`)
 - **VPC ID**: `vpc-0906c8b37686335e4` (`10.20.0.0/16`)
 - **Subnets**: 2 Public (`subnet-0dc69b6dd6345918a`, `subnet-0962c5ea7b47cd896`), 2 Private (`subnet-011ae095277fc8dd3`, `subnet-0ed3e77df12359346`)
 - **Internet Gateway**: `igw-086741436425131a2`
