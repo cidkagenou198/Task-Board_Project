@@ -28,6 +28,9 @@ build/
 *.tfstate
 *.tfstate.*
 .terraform.lock.hcl
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
 
 # IDEs & OS files
 .idea/
