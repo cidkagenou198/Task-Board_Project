@@ -306,6 +306,7 @@ http_requests_total{handler="/api/tasks/{task_id}",method="DELETE",status="2xx"}
 
 ### Recorded Screen Recording & Video Deliverables:
 - **Recorded Screen Recording Video Walkthrough (MP4)**: [docs/demo/deliverables_walkthrough_fast.mp4](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_walkthrough_fast.mp4) (31.6 MB, 1 minute 34 seconds, candidate screen recording demo).
+- **Lightweight Animated WebP Walkthrough**: [docs/demo/deliverables_walkthrough.webp](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_walkthrough.webp) (2.26 MB, embeds directly in README for instant zero-download playback).
 - **Embedded Web Player**: Available directly at `http://localhost:3000/demo.html` or by clicking **"▶ Watch Screen Recording"** in the TicketDesk header.
 - **TicketDesk Incident Board Interface**: [docs/demo/ticketdesk_dashboard.png](file:///d:/TaskBoard-Project/session21-python/docs/demo/ticketdesk_dashboard.png)
 - **Visual Evidence Directory**: [docs/demo/](file:///d:/TaskBoard-Project/session21-python/docs/demo/)

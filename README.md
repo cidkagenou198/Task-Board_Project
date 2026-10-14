@@ -11,16 +11,13 @@
 ### 🎬 Live Capstone Demonstration Walkthrough (1m 34s)
 **Lead DevOps Support Engineer: Sai Charan** • **100/100 Points Rubric Demonstration**
 
-https://github.com/cidkagenou198/Task-Board_Project/raw/main/docs/demo/deliverables_walkthrough_fast.mp4
-
-<video src="https://github.com/cidkagenou198/Task-Board_Project/raw/main/docs/demo/deliverables_walkthrough_fast.mp4" controls="controls" width="100%" poster="docs/demo/ticketdesk_dashboard.png">
-  <source src="https://github.com/cidkagenou198/Task-Board_Project/raw/main/docs/demo/deliverables_walkthrough_fast.mp4" type="video/mp4">
-  Your browser does not support HTML5 video.
-</video>
+<a href="https://github.com/cidkagenou198/Task-Board_Project/raw/main/docs/demo/deliverables_walkthrough_fast.mp4">
+  <img src="docs/demo/deliverables_walkthrough.webp" width="100%" alt="TicketDesk Live Demo Walkthrough (Sai Charan)" style="border-radius: 8px; border: 1px solid #30363d;" />
+</a>
 
 <p align="center">
   <a href="https://github.com/cidkagenou198/Task-Board_Project/raw/main/docs/demo/deliverables_walkthrough_fast.mp4">
-    <img src="https://img.shields.io/badge/▶_Watch_Demo_Video-MP4_(31MB)-6366f1?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Watch Demo Video" />
+    <img src="https://img.shields.io/badge/▶_Download_Full_HD-MP4_(31MB)-6366f1?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Download Full HD Video" />
   </a>
   <a href="docs/presentation/TicketDesk_DevOps_Capstone_Presentation.pptx">
     <img src="https://img.shields.io/badge/📊_Download_Slides-PowerPoint_(.PPTX)-0284c7?style=for-the-badge&logo=microsoftpowerpoint&logoColor=white" alt="Download Presentation Slides" />
@@ -30,7 +27,7 @@ https://github.com/cidkagenou198/Task-Board_Project/raw/main/docs/demo/deliverab
   </a>
 </p>
 
-> 💡 **Quick Navigation**: View the [Interactive HTML5 Presentation Deck](docs/presentation/index.html) or review the [Complete Submission Deliverables Dossier (100/100 Points)](SUBMISSION_DELIVERABLES.md).
+> 💡 *The animated recording above plays automatically without downloading. Click the player or badge to view or download the full 1080p MP4.*
 
 </div>
 
