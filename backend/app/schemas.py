@@ -2,30 +2,39 @@ from datetime import datetime
 from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 
-Status = Literal["TODO", "IN_PROGRESS", "DONE"]
-Priority = Literal["LOW", "MEDIUM", "HIGH"]
+TicketStatus = Literal["OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED", "TODO", "DONE"]
+TicketPriority = Literal["LOW", "MEDIUM", "HIGH", "CRITICAL"]
 
-class TaskCreate(BaseModel):
+class TicketCreate(BaseModel):
     title: str = Field(min_length=1, max_length=200)
     description: str = ""
-    priority: Priority = "MEDIUM"
-    status: Status = "TODO"
-    assignee: str = "Unassigned"
+    priority: TicketPriority = "MEDIUM"
+    status: TicketStatus = "OPEN"
+    assignee: str = "Sai Charan"
 
-class TaskUpdate(BaseModel):
+class TicketUpdate(BaseModel):
     title: str | None = Field(default=None, min_length=1, max_length=200)
     description: str | None = None
-    priority: Priority | None = None
-    status: Status | None = None
+    priority: TicketPriority | None = None
+    status: TicketStatus | None = None
     assignee: str | None = None
 
-class TaskOut(TaskCreate):
+class TicketOut(TicketCreate):
     id: int
     created_at: datetime
     model_config = ConfigDict(from_attributes=True)
 
-class StatsOut(BaseModel):
+class TicketStatsOut(BaseModel):
     total: int
-    todo: int
-    inProgress: int
-    done: int
+    open: int = 0
+    inProgress: int = 0
+    resolved: int = 0
+    # Backward compatibility attributes:
+    todo: int = 0
+    done: int = 0
+
+# Backward compatibility aliases
+TaskCreate = TicketCreate
+TaskUpdate = TicketUpdate
+TaskOut = TicketOut
+StatsOut = TicketStatsOut

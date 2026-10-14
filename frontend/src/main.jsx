@@ -2,11 +2,11 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
 
-const API = '/api';
+const API = '/api/tickets';
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-  const [stats, setStats] = useState({ total: 0, todo: 0, inProgress: 0, done: 0 });
+  const [tickets, setTickets] = useState([]);
+  const [stats, setStats] = useState({ total: 0, open: 0, inProgress: 0, resolved: 0 });
   const [filterPriority, setFilterPriority] = useState('ALL');
   const [search, setSearch] = useState('');
   const [viewMode, setViewMode] = useState('kanban'); // 'kanban' or 'table'
@@ -18,12 +18,12 @@ function App() {
   const loadData = async () => {
     try {
       setError('');
-      const [resTasks, resStats] = await Promise.all([
-        fetch(`${API}/tasks`),
-        fetch(`${API}/tasks/stats`)
+      const [resTickets, resStats] = await Promise.all([
+        fetch(API),
+        fetch(`${API}/stats`)
       ]);
-      if (!resTasks.ok || !resStats.ok) throw new Error('API server returned an error');
-      setTasks(await resTasks.json());
+      if (!resTickets.ok || !resStats.ok) throw new Error('API server returned an error');
+      setTickets(await resTickets.json());
       setStats(await resStats.json());
     } catch (err) {
       setError(err.message || 'Failed to connect to backend');
@@ -36,9 +36,9 @@ function App() {
     loadData();
   }, []);
 
-  // Filter tasks based on priority and search text
-  const filteredTasks = useMemo(() => {
-    return tasks.filter(t => {
+  // Filter tickets based on priority and search text
+  const filteredTickets = useMemo(() => {
+    return tickets.filter(t => {
       const matchPriority = filterPriority === 'ALL' || t.priority === filterPriority;
       const q = search.toLowerCase();
       const matchSearch = !search || 
@@ -47,18 +47,18 @@ function App() {
         (t.assignee && t.assignee.toLowerCase().includes(q));
       return matchPriority && matchSearch;
     });
-  }, [tasks, filterPriority, search]);
+  }, [tickets, filterPriority, search]);
 
-  const todoTasks = filteredTasks.filter(t => t.status === 'TODO');
-  const inProgressTasks = filteredTasks.filter(t => t.status === 'IN_PROGRESS');
-  const doneTasks = filteredTasks.filter(t => t.status === 'DONE');
+  const openTickets = filteredTickets.filter(t => t.status === 'OPEN' || t.status === 'TODO');
+  const inProgressTickets = filteredTickets.filter(t => t.status === 'IN_PROGRESS');
+  const resolvedTickets = filteredTickets.filter(t => t.status === 'RESOLVED' || t.status === 'DONE');
 
-  const updateStatus = async (task, newStatus) => {
+  const updateStatus = async (ticket, newStatus) => {
     try {
-      await fetch(`${API}/tasks/${task.id}`, {
+      await fetch(`${API}/${ticket.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...task, status: newStatus })
+        body: JSON.stringify({ ...ticket, status: newStatus })
       });
       loadData();
     } catch (err) {
@@ -66,10 +66,10 @@ function App() {
     }
   };
 
-  const deleteTask = async (taskId) => {
-    if (!confirm('Are you sure you want to delete this task?')) return;
+  const deleteTicket = async (ticketId) => {
+    if (!confirm('Are you sure you want to resolve and delete this incident ticket?')) return;
     try {
-      await fetch(`${API}/tasks/${taskId}`, { method: 'DELETE' });
+      await fetch(`${API}/${ticketId}`, { method: 'DELETE' });
       loadData();
     } catch (err) {
       console.error(err);
@@ -81,7 +81,7 @@ function App() {
     const form = e.currentTarget;
     const f = new FormData(form);
     try {
-      await fetch(`${API}/tasks`, {
+      await fetch(API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -89,41 +89,41 @@ function App() {
           description: f.get('description'),
           priority: f.get('priority'),
           assignee: f.get('assignee') || 'Sai Charan',
-          status: 'TODO'
+          status: 'OPEN'
         })
       });
       form.reset();
       setShowCreateModal(false);
       loadData();
     } catch (err) {
-      alert('Failed to create task: ' + err.message);
+      alert('Failed to create ticket: ' + err.message);
     }
   };
 
-  const completionPct = stats.total > 0 ? Math.round((stats.done / stats.total) * 100) : 0;
+  const resolutionPct = stats.total > 0 ? Math.round(((stats.resolved || stats.done) / stats.total) * 100) : 0;
 
   return (
     <div className="app">
       {/* SIDEBAR */}
       <aside className="sidebar">
         <div className="brand">
-          <div className="brand-mark">T</div>
+          <div className="brand-mark">TD</div>
           <div className="brand-info">
-            <b>TaskBoard</b>
-            <small>DevOps Platform</small>
+            <b>TicketDesk</b>
+            <small>IT Service & DevOps</small>
           </div>
         </div>
 
         <nav>
           <a className="active">
             <span>▦</span>
-            <span>Kanban Board</span>
+            <span>Incident Board</span>
             <span className="nav-tag">{stats.total}</span>
           </a>
           <a onClick={() => setShowVideoModal(true)}>
             <span>▶</span>
             <span>Demo Video</span>
-            <span className="nav-tag" style={{ color: '#34d399' }}>Live</span>
+            <span className="nav-tag" style={{ color: '#3fb950' }}>33s</span>
           </a>
           <a href="/docs" target="_blank" rel="noreferrer">
             <span>⚡</span>
@@ -140,23 +140,23 @@ function App() {
         <div className="side-bottom">
           <div className="env-card">
             <div className="env-card-title">
-              <span>●</span> System Environment
+              <span>●</span> Incident Infrastructure
             </div>
             <div className="env-item">
-              <span>API Backend</span>
+              <span>FastAPI Backend</span>
               <span className="status-indicator">
                 <span className="pulse-dot"></span> UP
               </span>
             </div>
             <div className="env-item">
-              <span>PostgreSQL</span>
+              <span>PostgreSQL DB</span>
               <span className="status-indicator">
                 <span className="pulse-dot"></span> Ready
               </span>
             </div>
             <div className="env-item">
-              <span>Kubernetes</span>
-              <span style={{ color: '#818cf8', fontWeight: 600 }}>v1.0.0</span>
+              <span>EKS Cluster</span>
+              <span style={{ color: '#58a6ff', fontWeight: 600 }}>v1.0.0</span>
             </div>
           </div>
 
@@ -164,7 +164,7 @@ function App() {
             <div className="avatar-badge">SC</div>
             <div className="profile-details">
               <b>Sai Charan</b>
-              <small>DevOps Engineer</small>
+              <small>DevOps Support Lead</small>
             </div>
           </div>
         </div>
@@ -175,10 +175,10 @@ function App() {
         {/* TOP HEADER */}
         <header className="top-header">
           <div>
-            <p className="eyebrow">Production Workspace / Overview</p>
+            <p className="eyebrow">IT Service Desk / Incident Command Center</p>
             <h1 className="header-title">Good morning, Sai Charan 👋</h1>
             <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
-              Real-time TaskBoard microservices deployed across Docker & Kubernetes.
+              Real-time IT helpdesk & production incident tracking running on Docker, Kubernetes & Terraform.
             </p>
           </div>
 
@@ -187,7 +187,7 @@ function App() {
               <span>▶</span> Watch Screen Recording
             </button>
             <button className="btn btn-primary" onClick={() => setShowCreateModal(true)}>
-              <span>＋</span> New Task
+              <span>＋</span> Open Ticket
             </button>
           </div>
         </header>
@@ -202,41 +202,41 @@ function App() {
         <section className="overview-card">
           <div className="progress-info">
             <div className="progress-labels">
-              <span>Sprint Velocity & Completion</span>
-              <span style={{ color: '#34d399' }}>{completionPct}% Completed</span>
+              <span>Incident Resolution SLA Rate</span>
+              <span style={{ color: '#3fb950' }}>{resolutionPct}% Resolved</span>
             </div>
             <div className="progress-track">
-              <div className="progress-bar" style={{ width: `${completionPct}%` }}></div>
+              <div className="progress-bar" style={{ width: `${resolutionPct}%` }}></div>
             </div>
           </div>
 
           <div className="quick-stats">
             <div className="quick-stat">
-              <span className="quick-stat-icon">📋</span>
+              <span className="quick-stat-icon">🎫</span>
               <div>
                 <span className="quick-stat-val">{stats.total}</span>
-                <span className="quick-stat-lbl">Total Tasks</span>
+                <span className="quick-stat-lbl">Total Tickets</span>
               </div>
             </div>
             <div className="quick-stat">
-              <span className="quick-stat-icon" style={{ color: '#fbbf24' }}>⏳</span>
+              <span className="quick-stat-icon" style={{ color: '#d29922' }}>⚠️</span>
               <div>
-                <span className="quick-stat-val">{stats.todo}</span>
-                <span className="quick-stat-lbl">To Do</span>
+                <span className="quick-stat-val">{stats.open || stats.todo}</span>
+                <span className="quick-stat-lbl">Open</span>
               </div>
             </div>
             <div className="quick-stat">
-              <span className="quick-stat-icon" style={{ color: '#818cf8' }}>⚡</span>
+              <span className="quick-stat-icon" style={{ color: '#58a6ff' }}>🔍</span>
               <div>
                 <span className="quick-stat-val">{stats.inProgress}</span>
-                <span className="quick-stat-lbl">In Progress</span>
+                <span className="quick-stat-lbl">Investigating</span>
               </div>
             </div>
             <div className="quick-stat">
-              <span className="quick-stat-icon" style={{ color: '#34d399' }}>✅</span>
+              <span className="quick-stat-icon" style={{ color: '#3fb950' }}>✅</span>
               <div>
-                <span className="quick-stat-val">{stats.done}</span>
-                <span className="quick-stat-lbl">Completed</span>
+                <span className="quick-stat-val">{stats.resolved || stats.done}</span>
+                <span className="quick-stat-lbl">Resolved</span>
               </div>
             </div>
           </div>
@@ -249,18 +249,18 @@ function App() {
             <input
               type="text"
               className="search-input"
-              placeholder="Search tasks, descriptions, or assignees..."
+              placeholder="Search incidents, error logs, or assignees..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
 
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-            <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600 }}>Priority:</span>
-            {['ALL', 'HIGH', 'MEDIUM', 'LOW'].map(p => (
+            <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600 }}>Severity:</span>
+            {['ALL', 'CRITICAL', 'HIGH', 'MEDIUM', 'LOW'].map(p => (
               <button
                 key={p}
-                className={`action-pill ${filterPriority === p ? 'success' : ''}`}
+                className="action-pill"
                 style={filterPriority === p ? { background: '#238636', color: '#fff', borderColor: '#238636' } : {}}
                 onClick={() => setFilterPriority(p)}
               >
@@ -288,84 +288,84 @@ function App() {
         {/* MAIN DISPLAY: KANBAN BOARD VIEW OR TABLE VIEW */}
         {loading ? (
           <div style={{ padding: '60px', textAlign: 'center', color: 'var(--text-muted)' }}>
-            Loading TaskBoard data...
+            Loading TicketDesk incidents...
           </div>
         ) : viewMode === 'kanban' ? (
           <div className="kanban-grid">
-            {/* COLUMN: TO DO */}
+            {/* COLUMN: OPEN */}
             <div className="kanban-column">
               <div className="column-header">
                 <div className="column-title">
                   <span className="column-dot todo"></span>
-                  <span>To Do</span>
+                  <span>Open Tickets</span>
                 </div>
-                <span className="column-badge">{todoTasks.length}</span>
+                <span className="column-badge">{openTickets.length}</span>
               </div>
 
               <div className="cards-container">
-                {todoTasks.map(t => (
-                  <TaskCard
+                {openTickets.map(t => (
+                  <TicketCard
                     key={t.id}
-                    task={t}
+                    ticket={t}
                     onMove={(status) => updateStatus(t, status)}
-                    onDelete={() => deleteTask(t.id)}
+                    onDelete={() => deleteTicket(t.id)}
                     nextStatus="IN_PROGRESS"
-                    nextLabel="Start Task →"
+                    nextLabel="Investigate →"
                   />
                 ))}
-                {!todoTasks.length && <div className="empty-col">No tasks in To Do</div>}
+                {!openTickets.length && <div className="empty-col">No open tickets</div>}
               </div>
             </div>
 
-            {/* COLUMN: IN PROGRESS */}
+            {/* COLUMN: INVESTIGATING */}
             <div className="kanban-column">
               <div className="column-header">
                 <div className="column-title">
                   <span className="column-dot in_progress"></span>
-                  <span>In Progress</span>
+                  <span>In Progress / Investigating</span>
                 </div>
-                <span className="column-badge">{inProgressTasks.length}</span>
+                <span className="column-badge">{inProgressTickets.length}</span>
               </div>
 
               <div className="cards-container">
-                {inProgressTasks.map(t => (
-                  <TaskCard
+                {inProgressTickets.map(t => (
+                  <TicketCard
                     key={t.id}
-                    task={t}
+                    ticket={t}
                     onMove={(status) => updateStatus(t, status)}
-                    onDelete={() => deleteTask(t.id)}
-                    prevStatus="TODO"
+                    onDelete={() => deleteTicket(t.id)}
+                    prevStatus="OPEN"
                     prevLabel="← Back"
-                    nextStatus="DONE"
-                    nextLabel="Complete ✓"
+                    nextStatus="RESOLVED"
+                    nextLabel="Resolve ✓"
                   />
                 ))}
-                {!inProgressTasks.length && <div className="empty-col">No tasks in progress</div>}
+                {!inProgressTickets.length && <div className="empty-col">No tickets being investigated</div>}
               </div>
             </div>
 
-            {/* COLUMN: DONE */}
+            {/* COLUMN: RESOLVED */}
             <div className="kanban-column">
               <div className="column-header">
                 <div className="column-title">
                   <span className="column-dot done"></span>
-                  <span>Completed</span>
+                  <span>Resolved Incidents</span>
                 </div>
-                <span className="column-badge">{doneTasks.length}</span>
+                <span className="column-badge">{resolvedTickets.length}</span>
               </div>
 
               <div className="cards-container">
-                {doneTasks.map(t => (
-                  <TaskCard
+                {resolvedTickets.map(t => (
+                  <TicketCard
                     key={t.id}
-                    task={t}
+                    ticket={t}
                     onMove={(status) => updateStatus(t, status)}
-                    onDelete={() => deleteTask(t.id)}
+                    onDelete={() => deleteTicket(t.id)}
                     prevStatus="IN_PROGRESS"
                     prevLabel="↺ Reopen"
                   />
                 ))}
-                {!doneTasks.length && <div className="empty-col">No completed tasks</div>}
+                {!resolvedTickets.length && <div className="empty-col">No resolved incidents</div>}
               </div>
             </div>
           </div>
@@ -375,15 +375,15 @@ function App() {
             <table>
               <thead>
                 <tr>
-                  <th>Task</th>
+                  <th>Incident Ticket</th>
                   <th>Assignee</th>
-                  <th>Priority</th>
+                  <th>Severity</th>
                   <th>Status</th>
                   <th style={{ textAlign: 'right' }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {filteredTasks.map(t => (
+                {filteredTickets.map(t => (
                   <tr key={t.id}>
                     <td>
                       <b style={{ color: '#fff', display: 'block' }}>{t.title}</b>
@@ -401,7 +401,7 @@ function App() {
                       <span className={`priority-tag ${t.priority.toLowerCase()}`}>{t.priority}</span>
                     </td>
                     <td>
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: t.status === 'DONE' ? '#34d399' : t.status === 'IN_PROGRESS' ? '#818cf8' : '#fbbf24' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: t.status === 'RESOLVED' || t.status === 'DONE' ? '#3fb950' : t.status === 'IN_PROGRESS' ? '#58a6ff' : '#d29922' }}>
                         {t.status.replace('_', ' ')}
                       </span>
                     </td>
@@ -409,7 +409,7 @@ function App() {
                       <button
                         className="action-pill"
                         onClick={() => {
-                          const next = t.status === 'TODO' ? 'IN_PROGRESS' : t.status === 'IN_PROGRESS' ? 'DONE' : 'TODO';
+                          const next = (t.status === 'OPEN' || t.status === 'TODO') ? 'IN_PROGRESS' : t.status === 'IN_PROGRESS' ? 'RESOLVED' : 'OPEN';
                           updateStatus(t, next);
                         }}
                       >
@@ -418,17 +418,17 @@ function App() {
                       <button
                         className="card-delete-btn"
                         style={{ marginLeft: '8px' }}
-                        onClick={() => deleteTask(t.id)}
+                        onClick={() => deleteTicket(t.id)}
                       >
                         ✕
                       </button>
                     </td>
                   </tr>
                 ))}
-                {!filteredTasks.length && (
+                {!filteredTickets.length && (
                   <tr>
                     <td colSpan={5} style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
-                      No tasks found matching criteria.
+                      No incident tickets found matching criteria.
                     </td>
                   </tr>
                 )}
@@ -438,43 +438,44 @@ function App() {
         )}
       </main>
 
-      {/* CREATE TASK MODAL */}
+      {/* CREATE TICKET MODAL */}
       {showCreateModal && (
         <div className="modal-overlay" onClick={() => setShowCreateModal(false)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
-              <div className="modal-title">Create New Task</div>
+              <div className="modal-title">Open New Support Ticket</div>
               <button className="modal-close" onClick={() => setShowCreateModal(false)}>×</button>
             </div>
             <form onSubmit={handleCreate}>
               <div className="form-group">
-                <label>Task Title *</label>
+                <label>Incident / Ticket Title *</label>
                 <input
                   name="title"
                   required
                   className="form-control"
-                  placeholder="e.g. Implement Helm ingress routing"
+                  placeholder="e.g. Ingress Controller 502 Bad Gateway during load spike"
                 />
               </div>
               <div className="form-group">
-                <label>Description</label>
+                <label>Issue Description & Reproduction Steps</label>
                 <textarea
                   name="description"
                   className="form-control"
-                  placeholder="Describe task requirements, deliverables, and acceptance criteria..."
+                  placeholder="Describe error logs, affected microservices, and priority level..."
                 />
               </div>
               <div className="form-row">
                 <div className="form-group">
-                  <label>Priority</label>
+                  <label>Severity</label>
                   <select name="priority" className="form-control" defaultValue="HIGH">
                     <option value="LOW">LOW</option>
                     <option value="MEDIUM">MEDIUM</option>
                     <option value="HIGH">HIGH</option>
+                    <option value="CRITICAL">CRITICAL</option>
                   </select>
                 </div>
                 <div className="form-group">
-                  <label>Assignee</label>
+                  <label>Assigned Engineer</label>
                   <input
                     name="assignee"
                     className="form-control"
@@ -483,7 +484,7 @@ function App() {
                 </div>
               </div>
               <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '10px' }}>
-                Create Task
+                Open Ticket
               </button>
             </form>
           </div>
@@ -496,7 +497,7 @@ function App() {
           <div className="video-modal-content" onClick={e => e.stopPropagation()}>
             <div className="modal-header" style={{ padding: '20px 24px 10px' }}>
               <div>
-                <div className="modal-title">TaskBoard Deliverables Video Demonstration</div>
+                <div className="modal-title">TicketDesk Deliverables Video Walkthrough</div>
                 <p style={{ color: 'var(--text-muted)', fontSize: '12px' }}>
                   Full end-to-end screen recording demonstrating M1–M10 deliverables
                 </p>
@@ -516,16 +517,16 @@ function App() {
                 Your browser does not support HTML5 video.
               </video>
             </div>
-            <div style={{ padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0,0,0,0.4)' }}>
-              <div style={{ fontSize: '12px', color: '#cbd5e1' }}>
-                <span>Presenter: <b>Sai Charan</b> (DevOps Engineer) • Fast Walkthrough (33s)</span>
+            <div style={{ padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#161b22' }}>
+              <div style={{ fontSize: '12px', color: '#c9d1d9' }}>
+                <span>Presenter: <b>Sai Charan</b> (DevOps Support Lead) • Fast Walkthrough (34s)</span>
               </div>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <a href="/demo.html" target="_blank" className="btn btn-secondary" style={{ textDecoration: 'none' }}>
                   Open Full Page ↗
                 </a>
                 <a href="/deliverables_walkthrough_fast.mp4" download className="btn btn-primary" style={{ textDecoration: 'none' }}>
-                  Download Fast MP4 (5 MB) ⬇
+                  Download Fast MP4 (10 MB) ⬇
                 </a>
               </div>
             </div>
@@ -536,27 +537,27 @@ function App() {
   );
 }
 
-function TaskCard({ task, onMove, onDelete, nextStatus, nextLabel, prevStatus, prevLabel }) {
-  const initials = task.assignee
-    ? task.assignee.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()
+function TicketCard({ ticket, onMove, onDelete, nextStatus, nextLabel, prevStatus, prevLabel }) {
+  const initials = ticket.assignee
+    ? ticket.assignee.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()
     : 'SC';
 
   return (
     <div className="task-card">
       <div className="card-top">
-        <span className={`priority-tag ${task.priority.toLowerCase()}`}>{task.priority}</span>
-        <button className="card-delete-btn" onClick={onDelete} title="Delete task">✕</button>
+        <span className={`priority-tag ${ticket.priority.toLowerCase()}`}>{ticket.priority}</span>
+        <button className="card-delete-btn" onClick={onDelete} title="Resolve & Delete Ticket">✕</button>
       </div>
 
       <div>
-        <div className="task-card-title">{task.title}</div>
-        {task.description && <div className="task-card-desc">{task.description}</div>}
+        <div className="task-card-title">{ticket.title}</div>
+        {ticket.description && <div className="task-card-desc">{ticket.description}</div>}
       </div>
 
       <div className="card-meta">
         <div className="card-assignee">
           <span className="mini-avatar">{initials}</span>
-          <span>{task.assignee || 'Sai Charan'}</span>
+          <span>{ticket.assignee || 'Sai Charan'}</span>
         </div>
 
         <div className="card-actions">
