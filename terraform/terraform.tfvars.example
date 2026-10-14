@@ -1,0 +1,7 @@
+# AWS Infrastructure Configuration Example
+# Copy this file to terraform.tfvars and customize if needed.
+# DO NOT commit real AWS credentials, access keys, or secrets to Git.
+
+aws_region   = "ap-south-1"
+cluster_name = "taskboard-eks"
+environment  = "dev"
