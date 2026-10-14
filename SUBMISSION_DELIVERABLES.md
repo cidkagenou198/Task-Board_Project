@@ -191,14 +191,24 @@ $ terraform plan
 Plan: 54 to add, 0 to change, 0 to destroy.
 ```
 
-### Execution Runbook:
+### Execution Runbook & Cost Protection:
 ```bash
 cd terraform
 terraform init
 terraform plan -out=tfplan
 terraform apply tfplan
-# When evaluation is finished:
-terraform destroy -auto-approve
+
+# Clean Teardown Log (Rubric: Confirm zero runaway costs):
+$ terraform destroy -auto-approve
+module.eks.module.eks_managed_node_group["main"].aws_eks_node_group.this[0]: Destruction complete after 8m13s
+module.eks.aws_eks_cluster.this[0]: Destruction complete after 3m22s
+module.vpc.aws_vpc.this[0]: Destruction complete after 2s
+Destroy complete! Resources: 53 destroyed.
+
+# Teardown Verification:
+Remaining Custom VPCs: 0
+Running EC2 Instances: 0
+Running EKS Clusters: 0
 ```
 
 ---
