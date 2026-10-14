@@ -78,6 +78,11 @@ tests/test_api.py::test_tasks_stats PASSED                               [100%]
 
 ## M3 — Git and GitHub (5 Points)
 
+### Repository Details:
+- **Public GitHub Repository URL**: [https://github.com/cidkagenou198/Task-Board_Project](https://github.com/cidkagenou198/Task-Board_Project)
+- **GitHub Actions Pipeline Runs**: [https://github.com/cidkagenou198/Task-Board_Project/actions](https://github.com/cidkagenou198/Task-Board_Project/actions)
+- **Default Branch**: `main`
+
 ### Exclusion Verification:
 - Configuration: [.gitignore](file:///d:/TaskBoard-Project/session21-python/.gitignore)
 - Confirmed exclusions: `.env`, `__pycache__/`, `node_modules/`, `.venv/`, `.terraform/`, `*.tfstate`
