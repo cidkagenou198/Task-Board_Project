@@ -230,8 +230,9 @@ http_requests_total{handler="/api/tasks/{task_id}",method="DELETE",status="2xx"}
 6. **Show Metrics & Load**: Run `scripts/load-test.sh` and show live traffic spike in Prometheus Targets (`UP`) and Grafana dashboard.
 
 ### Recorded Screen Recording & Video Deliverables:
-- **Standard MP4 Video File**: [docs/demo/deliverables_walkthrough.mp4](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_walkthrough.mp4) (12.2 MB standard video file playable in Windows Media Player, VLC, QuickTime, Chrome, Edge, and iOS/Android).
-- **Comprehensive Project Walkthrough (WebP)**: [docs/demo/deliverables_video_walkthrough.webp](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_video_walkthrough.webp) (665 frames, 7.8 MB full walkthrough across M1–M10).
+- **Fast-Paced Demo Video (MP4)**: [docs/demo/deliverables_walkthrough_fast.mp4](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_walkthrough_fast.mp4) (4.98 MB, 33.2 seconds, 20 FPS, 1280x632, borderless crisp demo).
+- **Lightweight Animated WebP**: [docs/demo/deliverables_walkthrough_fast.webp](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_walkthrough_fast.webp) (0.91 MB compact instant web animation).
+- **Full-Length Master Recording (MP4)**: [docs/demo/deliverables_walkthrough.mp4](file:///d:/TaskBoard-Project/session21-python/docs/demo/deliverables_walkthrough.mp4) (10.4 MB borderless complete recording).
 - **Embedded Web Player**: Available directly at `http://localhost:3000/demo.html` or by clicking **"▶ Watch Screen Recording"** in the TaskBoard header.
 - **Revamped Kanban Interface**: [docs/demo/kanban_dashboard.png](file:///d:/TaskBoard-Project/session21-python/docs/demo/kanban_dashboard.png)
 - **Visual Evidence Directory**: [docs/demo/](file:///d:/TaskBoard-Project/session21-python/docs/demo/)

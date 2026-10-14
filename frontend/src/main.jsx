@@ -511,21 +511,21 @@ function App() {
                 playsInline
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               >
-                <source src="/deliverables_walkthrough.mp4" type="video/mp4" />
-                <source src="/deliverables_walkthrough.webp" type="image/webp" />
+                <source src="/deliverables_walkthrough_fast.mp4" type="video/mp4" />
+                <source src="/deliverables_walkthrough_fast.webp" type="image/webp" />
                 Your browser does not support HTML5 video.
               </video>
             </div>
             <div style={{ padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0,0,0,0.4)' }}>
               <div style={{ fontSize: '12px', color: '#cbd5e1' }}>
-                <span>Presenter: <b>Sai Charan</b> (DevOps Engineer)</span>
+                <span>Presenter: <b>Sai Charan</b> (DevOps Engineer) • Fast Walkthrough (33s)</span>
               </div>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <a href="/demo.html" target="_blank" className="btn btn-secondary" style={{ textDecoration: 'none' }}>
                   Open Full Page ↗
                 </a>
-                <a href="/deliverables_walkthrough.mp4" download className="btn btn-primary" style={{ textDecoration: 'none' }}>
-                  Download Video ⬇
+                <a href="/deliverables_walkthrough_fast.mp4" download className="btn btn-primary" style={{ textDecoration: 'none' }}>
+                  Download Fast MP4 (5 MB) ⬇
                 </a>
               </div>
             </div>
