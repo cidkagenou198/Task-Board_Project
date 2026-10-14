@@ -97,19 +97,19 @@ tests/test_api.py::test_task_alias_compatibility PASSED                  [100%]
 
 ### Verified Commit History (13 Commits):
 ```text
-5aca14d chore(frontend): lock dependencies with package-lock.json
-1d039ce ci(devsecops): configure GitHub Actions workflow with pytest, Trivy scanning, and GHCR publish
-d1f1da8 monitoring: configure Prometheus and Grafana Helm values for metrics scraping
-6b495ff k8s(helm): package TaskBoard application with ingress routing, HPA, and servicemonitor
-4488a63 infra(terraform): declare AWS VPC and EKS cluster with managed worker node groups
-d35efa7 docker: define local multi-service stack with postgres health checks in compose
-7fa61b9 docker: containerize backend and frontend with non-root security enforcement
-c7f37dc feat(frontend): create React dashboard UI with workspace overview and dark theme
-bb8282f test(backend): add comprehensive pytest test suite and isolated in-memory db fixtures
-2396816 feat(backend): implement REST APIs, health probes, and prometheus metrics
-8475f0c feat(backend): add alembic database migrations for tasks schema
-d9d319f feat(backend): configure database models, schemas, and connection settings
-bb8e4ec chore: project initialization, documentation, and gitignore configuration
+1777752 chore(frontend): lock dependencies with package-lock.json
+63481a9 ci(devsecops): configure GitHub Actions workflow with pytest, Trivy scanning, and GHCR publish
+96e6518 monitoring: configure Prometheus and Grafana Helm values for metrics scraping
+b7c2735 k8s(helm): package TaskBoard application with ingress routing, HPA, and servicemonitor
+92d6237 infra(terraform): declare AWS VPC and EKS cluster with managed worker node groups
+05f6caa docker: define local multi-service stack with postgres health checks in compose
+beeb73d docker: containerize backend and frontend with non-root security enforcement
+ee066db feat(frontend): create React dashboard UI with workspace overview and dark theme
+5f59e80 test(backend): add comprehensive pytest test suite and isolated in-memory db fixtures
+24fd962 feat(backend): implement REST APIs, health probes, and prometheus metrics
+075c937 feat(backend): add alembic database migrations for tasks schema
+fe76854 feat(backend): configure database models, schemas, and connection settings
+b36def5 chore: project initialization, documentation, and gitignore configuration
 ```
 
 ---
