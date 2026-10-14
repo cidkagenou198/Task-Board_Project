@@ -166,10 +166,23 @@ docker compose up --build
 - VPC & EKS Modules: [terraform/main.tf](file:///d:/TaskBoard-Project/session21-python/terraform/main.tf)
 - Outputs: [terraform/outputs.tf](file:///d:/TaskBoard-Project/session21-python/terraform/outputs.tf)
 
+### Live AWS Deployment Evidence (Account: `131227885734`):
+- **Target Region**: `ap-southeast-2` (Asia Pacific - Sydney)
+- **Cluster Name**: `ticketdesk-eks` (Kubernetes v1.31)
+- **VPC ID**: `vpc-0906c8b37686335e4` (`10.20.0.0/16`)
+- **Subnets**: 2 Public (`subnet-0dc69b6dd6345918a`, `subnet-0962c5ea7b47cd896`), 2 Private (`subnet-011ae095277fc8dd3`, `subnet-0ed3e77df12359346`)
+- **Internet Gateway**: `igw-086741436425131a2`
+- **NAT Gateway**: `nat-04e2a2fb2a5403f04`
+- **KMS Cluster Encryption Key**: `360392ae-f2b7-402a-b281-48e08100be75`
+- **AWS Console Screenshot**: [docs/demo/aws_eks_cluster_console.png](file:///d:/TaskBoard-Project/session21-python/docs/demo/aws_eks_cluster_console.png)
+
 ### Verification Log:
 ```text
 $ terraform validate
 Success! The configuration is valid.
+
+$ terraform plan
+Plan: 54 to add, 0 to change, 0 to destroy.
 ```
 
 ### Execution Runbook:
