@@ -261,7 +261,7 @@ function App() {
               <button
                 key={p}
                 className={`action-pill ${filterPriority === p ? 'success' : ''}`}
-                style={filterPriority === p ? { background: 'var(--primary)', color: '#fff', borderColor: 'var(--primary)' } : {}}
+                style={filterPriority === p ? { background: '#238636', color: '#fff', borderColor: '#238636' } : {}}
                 onClick={() => setFilterPriority(p)}
               >
                 {p}

@@ -113,7 +113,7 @@ nav a:hover, nav a.active {
 }
 
 nav a.active {
-  border-left: 3px solid #58a6ff;
+  border-left: 3px solid #238636;
 }
 
 .nav-tag {
@@ -283,7 +283,7 @@ h1.header-title {
 
 .btn-accent {
   background: #1f2937;
-  border-color: #388bfd;
+  border-color: var(--border);
   color: #58a6ff;
 }
 
@@ -394,7 +394,7 @@ h1.header-title {
 }
 
 .search-input:focus {
-  border-color: #58a6ff;
+  border-color: #484f58;
 }
 
 .search-icon {
@@ -507,7 +507,7 @@ h1.header-title {
 
 .task-card:hover {
   background: #11161d;
-  border-color: #58a6ff;
+  border-color: #484f58;
 }
 
 .card-top {
@@ -753,7 +753,7 @@ tr:hover td { background: #1c2128; }
 }
 
 .form-control:focus {
-  border-color: #58a6ff;
+  border-color: #484f58;
 }
 
 textarea.form-control {
