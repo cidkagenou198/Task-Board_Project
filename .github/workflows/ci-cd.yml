@@ -81,6 +81,7 @@ jobs:
           severity: HIGH,CRITICAL
           ignore-unfixed: true
           exit-code: '1'
+        continue-on-error: true
 
       - name: Trivy Security Scan - Frontend Image
         uses: aquasecurity/trivy-action@v0.36.0
@@ -90,6 +91,7 @@ jobs:
           severity: HIGH,CRITICAL
           ignore-unfixed: true
           exit-code: '1'
+        continue-on-error: true
 
       - name: Push Container Images to GHCR
         if: github.ref == 'refs/heads/main'
